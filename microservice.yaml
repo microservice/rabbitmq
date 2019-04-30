@@ -1,0 +1,115 @@
+omg: 1
+lifecycle:
+  startup:
+    command: ["java", "-jar", "/app/target/rabbitmq-1.0-SNAPSHOT.jar"]
+actions:
+  subscribe:
+    events:
+      exchange:
+        http:
+          port: 8080
+          subscribe:
+            path: /subscribe/exchange
+            method: post
+            contentType: application/json
+        arguments:
+          name:
+            help: The name of the exchange to subscribe to
+            type: string
+            in: requestBody
+            required: true
+          type:
+            help: "The type of this exchange (eg: direct, topic)"
+            type: string
+            in: requestBody
+            required: true
+          routing_key:
+            help: The routing key to use
+            type: string
+            in: requestBody
+            required: true
+          consumer_tag:
+            help: The consumer tag
+            type: string
+            in: requestBody
+            required: true
+          output:
+            type: object
+            contentType: application/json
+            properties:
+              consumer_tag:
+                type: string
+              body:
+                type: string
+              properties:
+                type: object
+                properties:
+                  headers:
+                    type: map
+                  content_type:
+                    type: string
+                  content_encoding:
+                    type: string
+                  type:
+                    type: string
+                  message_id:
+                    type: string
+                  expiration:
+                    type: string
+                  reply_to:
+                    type: string
+                  cluster_id:
+                    type: string
+                  app_id:
+                    type: string
+  basic_publish:
+    http:
+      path: /basic/publish
+      method: post
+      port: 8080
+      contentType: application/json
+    arguments:
+      exchange:
+        type: string
+        in: requestBody
+        required: true
+      routing_key:
+        type: string
+        in: requestBody
+        required: true
+      app_id:
+        type: string
+        in: requestBody
+      cluster_id:
+        type: string
+        in: requestBody
+      content_encoding:
+        type: string
+        in: requestBody
+      content_type:
+        type: string
+        in: requestBody
+      expiration:
+        type: string
+        in: requestBody
+      message_id:
+        type: string
+        in: requestBody
+      type:
+        type: string
+        in: requestBody
+      reply_to:
+        type: string
+        in: requestBody
+      headers:
+        type: map
+        in: requestBody
+      content:
+        type: string
+        in: requestBody
+        required: true
+environment:
+  RABBITMQ_URI:
+    help: "The RabbitMQ connection URI (eg: amqp://username:password@host:port)"
+    type: string
+    required: true
