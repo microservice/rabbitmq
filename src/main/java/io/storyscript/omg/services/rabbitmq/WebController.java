@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 
@@ -82,10 +83,18 @@ public class WebController {
                             throws IOException {
                         System.out.println("recv from: " + consumerTag + ": " + properties + ": " + new String(body));
 
+                        final HashMap<String, Object> headers = new HashMap<>();
+                        properties.getHeaders().forEach((key, value) -> {
+                            if (value instanceof LongString) {
+                                value = value.toString();
+                            }
+                            headers.put(key, value);
+                        });
+
                         BasicDBObject data = new BasicDBObject()
                                 .append("consumer_tag", consumerTag)
                                 .append("properties", new BasicDBObject()
-                                        .append("headers", properties.getHeaders())
+                                        .append("headers", headers)
                                         .append("content_type", properties.getContentType())
                                         .append("content_encoding", properties.getContentEncoding())
                                         .append("type", properties.getType())
