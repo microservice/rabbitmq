@@ -2,10 +2,10 @@ package io.storyscript.omg.services.rabbitmq;
 
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mongodb.BasicDBObject;
 import com.rabbitmq.client.*;
 import io.storyscript.omg.services.rabbitmq.entities.BasicPublishPayload;
 import io.storyscript.omg.services.rabbitmq.entities.SubscribePayload;
-import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -82,34 +82,34 @@ public class WebController {
                             throws IOException {
                         System.out.println("recv from: " + consumerTag + ": " + properties + ": " + new String(body));
 
-                        JSONObject data = new JSONObject()
-                                .put("consumer_tag", consumerTag)
-                                .put("properties", new JSONObject()
-                                        .put("headers", properties.getHeaders())
-                                        .put("content_type", properties.getContentType())
-                                        .put("content_encoding", properties.getContentEncoding())
-                                        .put("type", properties.getType())
-                                        .put("message_id", properties.getMessageId())
-                                        .put("expiration", properties.getExpiration())
-                                        .put("reply_to", properties.getReplyTo())
-                                        .put("cluster_id", properties.getClusterId())
-                                        .put("app_id", properties.getAppId())
+                        BasicDBObject data = new BasicDBObject()
+                                .append("consumer_tag", consumerTag)
+                                .append("properties", new BasicDBObject()
+                                        .append("headers", properties.getHeaders())
+                                        .append("content_type", properties.getContentType())
+                                        .append("content_encoding", properties.getContentEncoding())
+                                        .append("type", properties.getType())
+                                        .append("message_id", properties.getMessageId())
+                                        .append("expiration", properties.getExpiration())
+                                        .append("reply_to", properties.getReplyTo())
+                                        .append("cluster_id", properties.getClusterId())
+                                        .append("app_id", properties.getAppId())
                                 )
-                                .put("body", new String(body, StandardCharsets.UTF_8));
+                                .append("body", new String(body, StandardCharsets.UTF_8));
 
-                        JSONObject ce = new JSONObject()
-                                .put("eventType", "trigger")
-                                .put("cloudEventsVersion", "0.1")
-                                .put("source", payload.getExchange())
-                                .put("eventID", UUID.randomUUID().toString())
-                                .put("eventTime", new Date().toString())
-                                .put("contentType", "application/vnd.omg.object+json")
-                                .put("data", data);
+                        BasicDBObject ce = new BasicDBObject()
+                                .append("eventType", "trigger")
+                                .append("cloudEventsVersion", "0.1")
+                                .append("source", payload.getExchange())
+                                .append("eventID", UUID.randomUUID().toString())
+                                .append("eventTime", new Date().toString())
+                                .append("contentType", "application/vnd.omg.object+json")
+                                .append("data", data);
 
                         try {
                             Unirest.post(payload.getEndpoint())
                                     .header("Content-Type", "application/json; charset=utf-8")
-                                    .body(ce.toString()).asString();
+                                    .body(ce.toJson()).asString();
                         } catch (UnirestException e) {
                             throw new IOException(e);
                         }
