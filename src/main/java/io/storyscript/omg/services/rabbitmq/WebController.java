@@ -34,7 +34,7 @@ public class WebController {
     public WebController() throws NoSuchAlgorithmException, KeyManagementException,
             URISyntaxException, IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setUri(System.getProperty("RABBITMQ_URI"));
+        factory.setUri(System.getenv("RABBITMQ_URI"));
         rabbit = factory.newConnection();
         rabbitPublishOnlyChannel = rabbit.createChannel();
     }
