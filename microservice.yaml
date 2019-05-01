@@ -33,35 +33,35 @@ actions:
             type: string
             in: requestBody
             required: true
-          output:
-            type: object
-            contentType: application/json
+        output:
+          type: object
+          contentType: application/json
+          properties:
+            consumer_tag:
+              type: string
+            body:
+              type: string
             properties:
-              consumer_tag:
-                type: string
-              body:
-                type: string
+              type: object
               properties:
-                type: object
-                properties:
-                  headers:
-                    type: map
-                  content_type:
-                    type: string
-                  content_encoding:
-                    type: string
-                  type:
-                    type: string
-                  message_id:
-                    type: string
-                  expiration:
-                    type: string
-                  reply_to:
-                    type: string
-                  cluster_id:
-                    type: string
-                  app_id:
-                    type: string
+                headers:
+                  type: map
+                content_type:
+                  type: string
+                content_encoding:
+                  type: string
+                type:
+                  type: string
+                message_id:
+                  type: string
+                expiration:
+                  type: string
+                reply_to:
+                  type: string
+                cluster_id:
+                  type: string
+                app_id:
+                  type: string
   basic_publish:
     http:
       path: /basic/publish
