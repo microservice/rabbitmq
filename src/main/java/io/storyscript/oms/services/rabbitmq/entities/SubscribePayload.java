@@ -1,4 +1,4 @@
-package io.storyscript.omg.services.rabbitmq.entities;
+package io.storyscript.oms.services.rabbitmq.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

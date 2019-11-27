@@ -1,7 +1,7 @@
-omg: 1
+oms: 1
 lifecycle:
   startup:
-    command: ["java", "-jar", "/app/target/rabbitmq-1.0-SNAPSHOT.jar"]
+    command: ['java', '-jar', '/app/target/rabbitmq-1.0-SNAPSHOT.jar']
 info:
   version: 1.0.0
   title: RabbitMQ
@@ -12,7 +12,7 @@ info:
     email: infra@storyscript.io
   license:
     name: MIT
-    url: https://opensource.org/licenses/MIT 
+    url: https://opensource.org/licenses/MIT
 actions:
   subscribe:
     events:
@@ -30,7 +30,7 @@ actions:
             in: requestBody
             required: true
           type:
-            help: "The type of this exchange (eg: direct, topic)"
+            help: 'The type of this exchange (eg: direct, topic)'
             type: string
             in: requestBody
             required: true
@@ -123,6 +123,6 @@ actions:
       type: none
 environment:
   RABBITMQ_URI:
-    help: "The RabbitMQ connection URI (eg: amqp://username:password@host:port)"
+    help: 'The RabbitMQ connection URI (eg: amqp://username:password@host:port)'
     type: string
     required: true

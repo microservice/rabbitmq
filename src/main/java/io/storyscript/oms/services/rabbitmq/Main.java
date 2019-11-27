@@ -1,4 +1,4 @@
-package io.storyscript.omg.services.rabbitmq;
+package io.storyscript.oms.services.rabbitmq;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

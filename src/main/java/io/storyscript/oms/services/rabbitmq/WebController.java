@@ -1,11 +1,11 @@
-package io.storyscript.omg.services.rabbitmq;
+package io.storyscript.oms.services.rabbitmq;
 
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mongodb.BasicDBObject;
 import com.rabbitmq.client.*;
-import io.storyscript.omg.services.rabbitmq.entities.BasicPublishPayload;
-import io.storyscript.omg.services.rabbitmq.entities.SubscribePayload;
+import io.storyscript.oms.services.rabbitmq.entities.BasicPublishPayload;
+import io.storyscript.oms.services.rabbitmq.entities.SubscribePayload;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -112,7 +112,7 @@ public class WebController {
                                 .append("source", payload.getExchange())
                                 .append("eventID", UUID.randomUUID().toString())
                                 .append("eventTime", new Date().toString())
-                                .append("contentType", "application/vnd.omg.object+json")
+                                .append("contentType", "application/vnd.oms.object+json")
                                 .append("data", data);
 
                         try {
