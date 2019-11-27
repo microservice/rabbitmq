@@ -1,18 +1,21 @@
 oms: 1
-lifecycle:
-  startup:
-    command: ['java', '-jar', '/app/target/rabbitmq-1.0-SNAPSHOT.jar']
 info:
   version: 1.0.0
   title: RabbitMQ
   description: This service allows communication to a RabbitMQ server
   contact:
-    name: Storyscript
-    url: https://storyscript.io
-    email: infra@storyscript.io
+    name: Open Microservices
+    url: 'https://openmicroservices.org'
+    email: core@openmicroservices.org
   license:
     name: MIT
-    url: https://opensource.org/licenses/MIT
+    url: 'https://opensource.org/licenses/MIT'
+lifecycle:
+  startup:
+    command:
+      - java
+      - '-jar'
+      - /app/target/rabbitmq-1.0-SNAPSHOT.jar
 actions:
   subscribe:
     events:
