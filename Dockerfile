@@ -7,7 +7,7 @@ ADD         mvnw .
 
 RUN         ./mvnw -v
 
-ADD         microservice.yaml .
+ADD         oms.yml .
 ADD         pom.xml .
 ADD         src src
 
